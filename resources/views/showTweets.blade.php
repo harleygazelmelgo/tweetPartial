@@ -1,22 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Tweets</title>
-</head>
-<body>
+@extends('master')
 
-    <?php
+@section('title')
+Tweets
+@endsection
 
-        foreach ($allTweets as $tweet) {
+@section('content')
 
-            echo("<p>" . $tweet['content'] . "</p>");
-            echo("<p><strong>" . $tweet['author'] . "</strong></p>");
-        }
+@foreach ($allTweets as $tweet)
+    <p>{{ $tweet->content }} </p>
+    <p><strong>{{ $tweet->author }} </strong></p>
+    <form action="/deletePost" method="post">
+        @csrf
+        <button name="id" type="submit" value="{{ $tweet->id}}">Delete Post </button>
+    </form>
+@endforeach
 
-    ?>
+@include('header')
 
-</body>
-</html>
+<form action='/' method=post>
+    @csrf
+    <input type="text" name="author" value="author">
+    <input type="text" name="content" value="tweet">
+    <input type="submit" value="create tweet">
+</form>
+
+@endsection
+
+
