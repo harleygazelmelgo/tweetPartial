@@ -11,6 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'TweetController@show');
+
+Route::get('/{tweetId}', 'TweetController@showTweet');
+
+
